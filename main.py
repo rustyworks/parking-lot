@@ -15,7 +15,10 @@ def main():
     command.status()
     command.park("KA-01-P-333", "White")
     command.park("DL-12-AA-9999", "White")
-    breakpoint()
+    command.registration_numbers_for_cars_with_colour("White")
+    command.slot_numbers_for_cars_with_colour("White")
+    command.slot_number_for_registration_number("KA-01-HH-3141")
+    command.slot_number_for_registration_number("MH-04-AY-1111")
 
 
 if __name__ == "__main__":

@@ -18,4 +18,4 @@ class ParkingLot:
         return nearest_slot
 
     def get_slot(self, position):
-        return self.slots[position]
+        return [slot for slot in self.slots if slot.id == position][0]
