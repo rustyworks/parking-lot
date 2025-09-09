@@ -14,9 +14,9 @@ def print_all(function):
 
 class Command:
 
-    def create_parking_lot(self, number_of_slots: int) -> ParkingLot:
+    def create_parking_lot(self, number_of_slots: int) -> str:
         self.parking_lot = ParkingLot(number_of_slots)
-        return self.parking_lot
+        # return self.parking_lot
         return f"Creating a parking lot with {number_of_slots} slots"
 
     @print_all
@@ -29,12 +29,11 @@ class Command:
                 id=len(Ticket.tickets) + 1,
                 registration_number=registration_number,
                 color=color,
-                slot=slot.id,
+                slot_id=slot.id,
             )
             Ticket.tickets.append(ticket)
             return f"Allocate slot number: {slot.id}"
-        else:
-            return "Sorry, parking lot is full"
+        return "Sorry, parking lot is full"
 
     @print_all
     def leave(self, slot_position: int) -> str:
@@ -60,17 +59,26 @@ class Command:
 
     @print_all
     def registration_numbers_for_cars_with_colour(self, color: str) -> str:
-        filtered_slots = SlotQuery.where(slots=self.parking_lot.slots, color=color)
-        result = [slot.car.registration_number for slot in filtered_slots]
+        filtered_slots = SlotQuery.where(
+            slots=self.parking_lot.slots,
+            color=color
+        )
+        result = [slot.car.registration_number for slot in filtered_slots if slot.car]
         return ", ".join(result)
 
     @print_all
     def slot_numbers_for_cars_with_colour(self, color: str) -> str:
-        filtered_slots = SlotQuery.where(slots=self.parking_lot.slots, color=color)
+        filtered_slots = SlotQuery.where(
+            slots=self.parking_lot.slots,
+            color=color
+        )
         result = [str(slot.id) for slot in filtered_slots]
         return ", ".join(result)
 
     @print_all
-    def slot_number_for_registration_number(self, registration_number: str) -> str:
-        result = SlotQuery.find(slots=self.parking_lot.slots, registration_number=registration_number)
-        return result.id if result else None
+    def slot_number_for_registration_number(self, registration_number: str) -> str | None:
+        result = SlotQuery.find(
+            slots=self.parking_lot.slots,
+            registration_number=registration_number
+        )
+        return str(result.id) if result else None

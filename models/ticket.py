@@ -1,12 +1,11 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import ClassVar
 
-from .slot import Slot
 
 @dataclass
 class Ticket:
     id: int
     registration_number: str
     color: str
-    slot: Slot
+    slot_id: int
     tickets: ClassVar[list['Ticket']] = []

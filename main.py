@@ -1,10 +1,9 @@
-from models.parking_lot import ParkingLot
 from strategies.commands import Command
 
 
 def main():
     command = Command()
-    parking_lot = command.create_parking_lot(6)
+    command.create_parking_lot(6)
     command.park("KA-01-HH-1234", "White")
     command.park("KA-01-HH-9999", "White")
     command.park("KA-01-BB-0001", "Black")
